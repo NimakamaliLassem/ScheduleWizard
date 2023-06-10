@@ -6,7 +6,9 @@ import NotificationsFragment
 import ProfileFragment
 import SchoolActivitiesDatabaseHelper
 import SearchFragment
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -20,6 +22,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var schoolActivitiesDbHelper: SchoolActivitiesDatabaseHelper
     private lateinit var extracurricularActivitiesDbHelper: ExtracurricularActivitiesDatabaseHelper
 
+
+    //sound file integration
+    private lateinit var mediaPlayer: MediaPlayer
+    private val startTimeInMillis = 1000 // Set the start time in milliseconds
+    private val durationInMillis = 5000 // Set the duration in milliseconds
 
     private fun testDatabaseOperations() {
         // Add a user
@@ -127,6 +134,23 @@ class MainActivity : AppCompatActivity() {
 
         // Test database operations
         testDatabaseOperations()
+
+        //play the sound when the app is open
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound)
+        mediaPlayer.setOnPreparedListener { mp ->
+            mp.seekTo(startTimeInMillis)
+            mp.start()
+
+            Handler().postDelayed({
+                mp.stop()
+                mp.release()
+            }, durationInMillis.toLong())
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
     }
 
     private fun replaceFragment(fragment: Fragment) {
