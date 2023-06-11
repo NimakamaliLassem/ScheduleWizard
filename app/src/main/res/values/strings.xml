@@ -9,4 +9,7 @@
     <string name="activity_name">Activity Name</string>
     <string name="activity_type">Activity Type</string>
     <string name="actions">Actions</string>
+    <string name="my_notes">MY NOTES</string>
+    <string name="add_note">Add Note</string>
+    <string name="select_note_type">Select Note Type</string>
 </resources>
