@@ -4,4 +4,9 @@
     <string name="menu_search">Search</string>
     <string name="menu_notifications">Notifications</string>
     <string name="menu_profile">Profile</string>
+    <string name="enter_search_query">Enter search query</string>
+    <string name="search">Search</string>
+    <string name="activity_name">Activity Name</string>
+    <string name="activity_type">Activity Type</string>
+    <string name="actions">Actions</string>
 </resources>

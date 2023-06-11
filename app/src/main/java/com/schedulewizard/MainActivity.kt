@@ -17,6 +17,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
+    // Hide the app name from the action bar
+
     //  ⚠️⚠️⚠️ PLEASE REMOVE THIS WHILE MERGING ⚠️⚠️⚠️
     private lateinit var userDbHelper: UserDatabaseHelper
     private lateinit var schoolActivitiesDbHelper: SchoolActivitiesDatabaseHelper
@@ -117,6 +119,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Hiding title bar using code
+        getSupportActionBar()?.hide();
+
         setContentView(R.layout.activity_main)
 
         // Set the initial fragment

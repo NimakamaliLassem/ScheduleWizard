@@ -9,12 +9,44 @@
         android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter search query" />
+        android:hint="@string/enter_search_query" />
 
     <Button
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search" />
+        android:text="@string/search" />
+
+    <TableLayout
+        android:id="@+id/activities_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <!-- Table Header -->
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/activity_name"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/activity_type"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/actions"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <!-- Table Rows (Populated Dynamically) -->
+
+    </TableLayout>
+
 
 </LinearLayout>
