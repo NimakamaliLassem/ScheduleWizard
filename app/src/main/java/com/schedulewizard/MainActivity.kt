@@ -119,13 +119,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigation = findViewById(R.id.navigation)
-        navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
         // Set the initial fragment
         replaceFragment(HomeFragment())
 
-        setContentView(R.layout.activity_main)
+
+        navigation = findViewById(R.id.navigation)
+        navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
 
         // Initialize database helpers
         userDbHelper = UserDatabaseHelper(this)
