@@ -15,27 +15,28 @@
         android:id="@+id/recyclerEx"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="19dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="68dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Extrac" />
 
     <TextView
         android:id="@+id/Extrac"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="20dp"
         android:text="Wanna Do Something  Extracurricular?"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="26sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/recyclerEx"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerSch" />
+        app:layout_constraintTop_toBottomOf="@+id/loadBtn" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSch"
@@ -43,42 +44,40 @@
         android:layout_height="0dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="22dp"
-        app:layout_constraintBottom_toTopOf="@+id/Extrac"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/loadBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="7dp"
         android:text="Today's School Deadlines!"
+        android:textAlignment="center"
         android:textColor="@color/design_default_color_error"
         android:textSize="26sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/recyclerSch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/recyclerSch"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="326dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="14dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/loadBtn"
+        android:layout_width="328dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="44dp"
+        android:text="Load School activities"
+        app:layout_constraintBottom_toTopOf="@+id/Extrac"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerEx" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerSch" />
 
     <!-- Add more UI elements as needed -->
 
