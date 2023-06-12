@@ -31,15 +31,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_note"
-        android:layout_below="@id/app_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_alignTop="@id/app_icon"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/app_icon"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/round_button_background"
+        android:padding="4dp"
+        android:textColor="#FFFFFF" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notes_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/app_icon"
+        android:layout_below="@id/add_note_button"
         android:layout_marginTop="16dp" />
 
 </RelativeLayout>
