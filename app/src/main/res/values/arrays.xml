@@ -1,0 +1,6 @@
+<resources>
+    <string-array name="note_types">
+        <item>School 📕📚</item>
+        <item>Life 🪄💫</item>
+    </string-array>
+</resources>

@@ -1,4 +1,3 @@
-<!-- fragment_search.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,36 +16,44 @@
         android:layout_height="wrap_content"
         android:text="@string/search" />
 
-    <TableLayout
-        android:id="@+id/activities_table"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <!-- Table Header -->
-        <TableRow>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/activity_name"
-                android:textStyle="bold" />
+        <TableLayout
+            android:id="@+id/activities_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/activity_type"
-                android:textStyle="bold" />
+            <!-- Table Header -->
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/activity_name"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/actions"
-                android:textStyle="bold" />
-        </TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/activity_type"
+                    android:textStyle="bold" />
 
-        <!-- Table Rows (Populated Dynamically) -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@string/actions"
+                    android:textStyle="bold" />
+            </TableRow>
 
-    </TableLayout>
+            <!-- Table Rows (Populated Dynamically) -->
 
+        </TableLayout>
+    </ScrollView>
 
 </LinearLayout>
