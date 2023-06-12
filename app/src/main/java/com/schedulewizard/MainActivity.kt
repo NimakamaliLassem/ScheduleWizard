@@ -9,7 +9,6 @@ import SearchFragment
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.database.UserDatabaseHelper
@@ -33,19 +32,25 @@ class MainActivity : AppCompatActivity() {
     private fun testDatabaseOperations() {
         // Add a user
         val userId = userDbHelper.addUser("John", "Doe", "2nd Semester", "Class A")
-        Toast.makeText(this, "User added with ID: $userId", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "User added with ID: $userId", Toast.LENGTH_SHORT).show()
 
         // Add a school activity
-        val schoolActivityId = schoolActivitiesDbHelper.addActivity("Quiz 1", "2023-06-15", "Quiz", userId)
-        Toast.makeText(this, "School activity added with ID: $schoolActivityId", Toast.LENGTH_SHORT).show()
+        val sa1 = schoolActivitiesDbHelper.addActivity("Android Quiz", "2023-06-12", "Quiz", userId)
+        val sa2 = schoolActivitiesDbHelper.addActivity("Android Project", "2023-06-13", "Quiz", userId)
+        val sa3 = schoolActivitiesDbHelper.addActivity("Java Presentation", "2023-06-14", "Quiz", userId)
+        val sa4 = schoolActivitiesDbHelper.addActivity("Rabbitmq Presentation", "2023-06-15", "Quiz", userId)
+        //Toast.makeText(this, "School activity added with ID: $schoolActivityId", Toast.LENGTH_SHORT).show()
 
         // Add an extracurricular activity
-        val extracurricularActivityId = extracurricularActivitiesDbHelper.addActivity("Chess Club", "Weekly meetings", userId)
-        Toast.makeText(this, "Extracurricular activity added with ID: $extracurricularActivityId", Toast.LENGTH_SHORT).show()
+        val ea1 = extracurricularActivitiesDbHelper.addActivity("Chess Club", "Weekly meetings", userId)
+        val ea2 = extracurricularActivitiesDbHelper.addActivity("MUN", "Prepare Notes", userId)
+        val ea3 = extracurricularActivitiesDbHelper.addActivity("Read Book", "Get a new one! Ask-ı Memnu is finished...", userId)
+        val ea4 = extracurricularActivitiesDbHelper.addActivity("Zurich Trip", "Look up your plan", userId)
+        //Toast.makeText(this, "Extracurricular activity added with ID: $extracurricularActivityId", Toast.LENGTH_SHORT).show()
 
         // Retrieve activities for a user
         val userActivities = getUserActivities(userId)
-        Toast.makeText(this, "User Activities: $userActivities", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "User Activities: $userActivities", Toast.LENGTH_SHORT).show()
     }
 
     private fun getUserActivities(userId: Long): List<String> {
