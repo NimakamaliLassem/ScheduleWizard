@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bottom_nav_icon_color">#41DD00</color>
     <color name="bottom_nav_text_color">#010C0B</color>
+    <color name="orange">#FFA500</color>
+
 </resources>

@@ -1,7 +1,9 @@
+import SchoolActivitiesDatabaseHelper.Companion.COLUMN_NAME
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+
 
 class ExtracurricularActivitiesDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -44,6 +46,22 @@ class ExtracurricularActivitiesDatabaseHelper(context: Context) : SQLiteOpenHelp
         return activityId
     }
 
+
+    fun getFirstTwoActivities(): List<String>? {
+        val activities: MutableList<String> = ArrayList()
+        val db = readableDatabase
+        val query = "SELECT $COLUMN_ACTIVITY_NAME FROM $TABLE_EXTRACURRICULAR_ACTIVITIES LIMIT 2"
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToFirst()) {
+            do {
+                val activityName = cursor.getString(cursor.getColumnIndex(COLUMN_ACTIVITY_NAME))
+                activities.add(activityName)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return activities
+    }
     // Add other CRUD methods as per your requirements
 
 
