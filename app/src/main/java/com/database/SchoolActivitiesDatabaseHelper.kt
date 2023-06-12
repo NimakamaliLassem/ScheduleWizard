@@ -1,7 +1,11 @@
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class SchoolActivitiesDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -47,13 +51,27 @@ class SchoolActivitiesDatabaseHelper(context: Context) : SQLiteOpenHelper(contex
         return taskId
     }
 
-    fun deleteActivity(taskId: Long): Int {
-        val db = this.writableDatabase
-        val whereClause = "$COLUMN_TASK_ID = ?"
-        val whereArgs = arrayOf(taskId.toString())
+    fun getActivitiesWithTodayDeadline(): List<String> {
+        val activities = mutableListOf<String>()
+        val db = readableDatabase
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val todayDate = dateFormat.format(Date())
+        val query = "SELECT $COLUMN_NAME FROM $TABLE_SCHOOL_ACTIVITIES WHERE $COLUMN_DEADLINE = ?"
+        val cursor: Cursor = db.rawQuery(query, arrayOf(todayDate))
 
-        val rowsDeleted = db.delete(TABLE_SCHOOL_ACTIVITIES, whereClause, whereArgs)
+        if (cursor.moveToFirst()) {
+            do {
+                val activityName = cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+                activities.add(activityName)
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
         db.close()
-        return rowsDeleted
+
+        return activities
     }
+
+
+    // Add other CRUD methods as per your requirements
 }
