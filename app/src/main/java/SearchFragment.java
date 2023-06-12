@@ -4,11 +4,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -29,7 +31,7 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
     private EditText searchEditText;
-    private Button searchButton;
+    private ImageView searchButton;
     private TableLayout activitiesTable;
 
     public String activityType;
@@ -44,7 +46,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchEditText = view.findViewById(R.id.search_edit_text);
-        searchButton = view.findViewById(R.id.search_button);
+        searchButton = view.findViewById(R.id.search_note_btn);
         activitiesTable = view.findViewById(R.id.activities_table);
 
         performSearch("");
@@ -98,7 +100,7 @@ public class SearchFragment extends Fragment {
             row.addView(typeTextView);
 
 
-            Button actionsButton = createActionsButton(activity);
+            ImageView actionsButton = createActionsImageView(activity);
             row.addView(actionsButton);
 
             activitiesTable.addView(row);
@@ -120,26 +122,27 @@ public class SearchFragment extends Fragment {
     private TextView createTableCell(String text) {
         TextView textView = new TextView(getActivity());
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(22, 12, 22, 12); // Adjust the margin values as needed
         textView.setLayoutParams(layoutParams);
         textView.setText(text);
+        textView.setGravity(Gravity.START); // Align text at the start
         return textView;
     }
 
-    private Button createActionsButton(final SearchActivity activity) {
-        Button button = new Button(getActivity());
+
+    private ImageView createActionsImageView(final SearchActivity activity) {
+        ImageView imageView = new ImageView(getActivity());
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-        button.setLayoutParams(layoutParams);
-        button.setText("Delete");
-        button.setOnClickListener(new View.OnClickListener() {
+        imageView.setLayoutParams(layoutParams);
+        imageView.setPadding(16, 8, 16, 8); // Adjust the padding values as needed
+        imageView.setImageResource(R.drawable.ic_delete); // Set the appropriate image resource
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle the action button click (e.g., delete or update)
-                // You can use the activity object to perform the corresponding action
-                // For example, deleteActivity(activity) or updateActivity(activity)
-                Toast.makeText(getActivity(), "Delete button clicked for activity: " + activity.getName(), Toast.LENGTH_SHORT).show();
+                deleteActivityFromDatabase(activity);
             }
         });
-        return button;
+        return imageView;
     }
 
     private List<SearchActivity> retrieveSchoolActivitiesFromDatabase(String tableName, String searchText) {
@@ -199,5 +202,38 @@ public class SearchFragment extends Fragment {
 
         return activitiesList;
     }
+
+    private void deleteActivityFromDatabase(SearchActivity activity) {
+        if (activity.getActivityType().equals("SCHOOL 📕📚")) {
+            SchoolActivitiesDatabaseHelper schoolActivitiesDatabaseHelper = new SchoolActivitiesDatabaseHelper(requireContext());
+            SQLiteDatabase schoolDB = schoolActivitiesDatabaseHelper.getWritableDatabase();
+
+            String whereClause = "name = ?";
+            String[] whereArgs = {activity.getName()};
+
+            int rowsDeleted = schoolDB.delete(SchoolActivitiesDatabaseHelper.TABLE_SCHOOL_ACTIVITIES, whereClause, whereArgs);
+            schoolDB.close();
+
+            if (rowsDeleted > 0) {
+                Toast.makeText(getActivity(), "Activity deleted: " + activity.getName(), Toast.LENGTH_SHORT).show();
+                performSearch(""); // Refresh the search results after deletion
+            }
+        } else if (activity.getActivityType().equals("OTHER 💫🪄")) {
+            ExtracurricularActivitiesDatabaseHelper extracurricularActivitiesDatabaseHelper = new ExtracurricularActivitiesDatabaseHelper(requireContext());
+            SQLiteDatabase extraDB = extracurricularActivitiesDatabaseHelper.getWritableDatabase();
+
+            String whereClause = "activityName = ?";
+            String[] whereArgs = {activity.getName()};
+
+            int rowsDeleted = extraDB.delete(ExtracurricularActivitiesDatabaseHelper.TABLE_EXTRACURRICULAR_ACTIVITIES, whereClause, whereArgs);
+            extraDB.close();
+
+            if (rowsDeleted > 0) {
+                Toast.makeText(getActivity(), "Activity deleted: " + activity.getName(), Toast.LENGTH_SHORT).show();
+                performSearch(""); // Refresh the search results after deletion
+            }
+        }
+    }
+
 
 }

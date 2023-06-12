@@ -33,4 +33,13 @@ class NoteDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
+
+    fun deleteNoteByTitle(noteTitle: String): Boolean {
+        val db = writableDatabase
+        val whereClause = "$COLUMN_TITLE = ?"
+        val whereArgs = arrayOf(noteTitle)
+        val deletedRows = db.delete(TABLE_NAME, whereClause, whereArgs)
+        db.close()
+        return deletedRows > 0
+    }
 }

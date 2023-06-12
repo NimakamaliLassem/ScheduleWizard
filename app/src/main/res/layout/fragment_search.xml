@@ -4,17 +4,29 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/search_edit_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_search_query" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search" />
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/enter_search_query" />
+
+        <ImageView
+            android:id="@+id/search_note_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            android:padding="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,13 +45,15 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/activity_name"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
+                    android:layout_gravity="start"
                     android:text="@string/activity_type"
                     android:textStyle="bold" />
 

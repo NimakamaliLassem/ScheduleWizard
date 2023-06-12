@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
-        app:itemIconTint="@color/bottom_nav_icon_color"
+        app:itemIconTint="#E91E63"
         app:itemTextColor="@color/bottom_nav_text_color"
         app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent" />

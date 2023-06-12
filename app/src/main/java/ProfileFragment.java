@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +50,7 @@ public class ProfileFragment extends Fragment implements GestureDetector.OnGestu
         recyclerView.setAdapter(adapter);
 
         // Set up Add Note button click listener
-        Button addNoteButton = view.findViewById(R.id.add_note_button);
+        ImageView addNoteButton = view.findViewById(R.id.add_note_button);
         addNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
