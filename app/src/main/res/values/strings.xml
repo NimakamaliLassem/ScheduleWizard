@@ -15,4 +15,6 @@
     <string name="note_title">Note Title</string>
     <string name="create">Create</string>
     <string name="note">Note</string>
+    <string name="note_details">Note Details</string>
+    <string name="ok">Ok</string>
 </resources>

@@ -1,8 +1,11 @@
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.NoteDetailsDialogFragment;
 import com.database.Note;
 import com.schedulewizard.NotesAdapter;
 import com.schedulewizard.R;
@@ -22,10 +26,13 @@ import com.schedulewizard.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements GestureDetector.OnGestureListener {
 
     private RecyclerView recyclerView;
     private NotesAdapter adapter;
+
+    private GestureDetector gestureDetector;
+
 
     @Nullable
     @Override
@@ -47,6 +54,17 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showAddNoteDialog();
+            }
+        });
+
+        // Initialize GestureDetector
+        gestureDetector = new GestureDetector(requireContext(), this);
+
+        // Attach the gesture detector to the RecyclerView
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
             }
         });
 
@@ -122,4 +140,50 @@ public class ProfileFragment extends Fragment {
         // Close the database connection
         //db.close();
     }
+
+
+    @Override
+    public boolean onDown(@NonNull MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(@NonNull MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(@NonNull MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        // Find the position of the item that was long-pressed
+        View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+        int position = recyclerView.getChildAdapterPosition(childView);
+
+        // Retrieve the note at the long-pressed position
+        Note note = adapter.getNoteAtPosition(position);
+
+        // Show the detail dialog for the long-pressed note
+        showNoteDetailDialog(note);
+    }
+
+
+    @Override
+    public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+        return false;
+    }
+
+    private void showNoteDetailDialog(Note note) {
+        NoteDetailsDialogFragment dialogFragment = NoteDetailsDialogFragment.newInstance(note.getTitle(), note.getType(), note.getText());
+        dialogFragment.show(getChildFragmentManager(), "NoteDetailDialog");
+    }
+
 }

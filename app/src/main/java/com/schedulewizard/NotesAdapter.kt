@@ -25,11 +25,17 @@ class NotesAdapter(private var notesList: List<Note>) : RecyclerView.Adapter<Not
     }
 
     fun addNote(note: Note) {
-        //val updatedList = myList.toMutableList().apply { add(newValue) }
-        notesList = notesList.toMutableList().apply{add(note)};
+        notesList = notesList.toMutableList().apply { add(note) }
         notifyDataSetChanged()
     }
 
+    fun getNoteAtPosition(position: Int): Note? {
+        return if (position in 0 until notesList.size) {
+            notesList[position]
+        } else {
+            null
+        }
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.title_text_view)
