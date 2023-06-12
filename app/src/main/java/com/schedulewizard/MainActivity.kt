@@ -9,7 +9,6 @@ import SearchFragment
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -17,6 +16,8 @@ import com.database.UserDatabaseHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    // Hide the app name from the action bar
 
     //  ⚠️⚠️⚠️ PLEASE REMOVE THIS WHILE MERGING ⚠️⚠️⚠️
     private lateinit var userDbHelper: UserDatabaseHelper
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private val durationInMillis = 5000 // Set the duration in milliseconds
 
     private fun testDatabaseOperations() {
-
         // Add a user
         val userId = userDbHelper.addUser("John", "Doe", "2nd Semester", "Class A")
         Toast.makeText(this, "User added with ID: $userId", Toast.LENGTH_SHORT).show()
@@ -118,20 +118,44 @@ class MainActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportActionBar?.hide()
-        setContentView(R.layout.activity_main)
-
-// Hiding the status bar
-//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         super.onCreate(savedInstanceState)
+        // Hiding title bar using code
+        getSupportActionBar()?.hide();
+
         setContentView(R.layout.activity_main)
+
+        // Set the initial fragment
+        replaceFragment(HomeFragment())
+
 
         navigation = findViewById(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        // Set the initial fragment
-        replaceFragment(HomeFragment())
+
+        // Initialize database helpers
+        userDbHelper = UserDatabaseHelper(this)
+        schoolActivitiesDbHelper = SchoolActivitiesDatabaseHelper(this)
+        extracurricularActivitiesDbHelper = ExtracurricularActivitiesDatabaseHelper(this)
+
+        // Test database operations
+        testDatabaseOperations()
+
+        //play the sound when the app is open
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound)
+        mediaPlayer.setOnPreparedListener { mp ->
+            mp.seekTo(startTimeInMillis)
+            mp.start()
+
+            Handler().postDelayed({
+                mp.stop()
+                mp.release()
+            }, durationInMillis.toLong())
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
     }
 
     private fun replaceFragment(fragment: Fragment) {
