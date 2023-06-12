@@ -44,7 +44,14 @@ class ExtracurricularActivitiesDatabaseHelper(context: Context) : SQLiteOpenHelp
         return activityId
     }
 
-    // Add other CRUD methods as per your requirements
+    fun deleteActivity(activityId: Long): Int {
+        val db = this.writableDatabase
+        val whereClause = "$COLUMN_ACTIVITY_ID = ?"
+        val whereArgs = arrayOf(activityId.toString())
 
+        val rowsDeleted = db.delete(TABLE_EXTRACURRICULAR_ACTIVITIES, whereClause, whereArgs)
+        db.close()
+        return rowsDeleted
+    }
 
 }
